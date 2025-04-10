@@ -29,11 +29,8 @@ public class StoryService {
 
     //acessar word por id
     public StoryModel printbyId(Long id){
-        Optional<StoryModel> optionalStory = repository.findById(id);
-        if(optionalStory.isPresent()){
-            return optionalStory.orElse(null);
-        }
-        return null;
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("História não encontrada"));
     }
 
     //acessar words da Story
@@ -44,16 +41,13 @@ public class StoryService {
 
     //atualizar uma word
     public StoryModel update(Long id, StoryModel storyBody){
-        Optional<StoryModel> optionalStory = repository.findById(id);
-        if(optionalStory.isPresent()){
-            StoryModel original = optionalStory.get();
+            StoryModel original = repository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("História não encontrada"));
 
             original.setGenre(storyBody.getGenre());
             original.setWordList(storyBody.getWordList());
 
             return repository.save(original);
-        }
-        throw new EntityNotFoundException("Story not found with id: " + id);
     }
 
     //deletar uma word

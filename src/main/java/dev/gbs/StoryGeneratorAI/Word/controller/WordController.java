@@ -1,14 +1,11 @@
 package dev.gbs.StoryGeneratorAI.Word.controller;
 
 import dev.gbs.StoryGeneratorAI.Word.model.WordModel;
-import dev.gbs.StoryGeneratorAI.Word.repository.WordRepository;
 import dev.gbs.StoryGeneratorAI.Word.service.WordService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/word")
@@ -50,8 +47,8 @@ public class WordController {
 
     //deletar uma word - DELETE
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<WordModel> delete(@PathVariable Long id){
+    public ResponseEntity<String> delete(@PathVariable Long id){
         service.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Palavra id: " + id + "deletada com sucesso");
     }
 }
