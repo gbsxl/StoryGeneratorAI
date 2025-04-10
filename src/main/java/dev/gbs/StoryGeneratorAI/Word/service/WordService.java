@@ -28,26 +28,20 @@ public class WordService {
 
     //acessar word por id
     public WordModel printbyId(Long id){
-        Optional<WordModel> optionalWord = repository.findById(id);
-        if(optionalWord.isPresent()){
-            return optionalWord.orElse(null);
-        }
-        return null;
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Palavra não encontrada, id: " +id));
     }
 
     //atualizar uma word
     public WordModel update(Long id, WordModel wordBody){
-        Optional<WordModel> optionalWord = repository.findById(id);
-        if(optionalWord.isPresent()){
-            WordModel original = optionalWord.get();
-            
+            WordModel original = repository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Palavra não encontrada"));
+
             original.setText(wordBody.getText());
             original.setType(wordBody.getType());
             original.setStory(wordBody.getStory());
 
            return repository.save(original);
-        }
-        throw new EntityNotFoundException("Word not found with id: " + id);
     }
 
     //deletar uma word
