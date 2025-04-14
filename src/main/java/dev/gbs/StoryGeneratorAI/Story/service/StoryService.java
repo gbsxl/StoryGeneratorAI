@@ -39,6 +39,15 @@ public class StoryService {
         return optionalStory.map(StoryModel::getWordList).orElse(null);
     }
 
+    public List<String> describeById(Long id){
+        if(repository.findById(id).isPresent()) {
+            return repository.findById(id).get().getWordList().stream()
+                    .map(word -> String.format("palavra: %s, tipo: %s", word.getText(), word.getType().toString()))
+                    .toList();
+        }
+        return null;
+    }
+
     //atualizar uma word
     public StoryModel update(Long id, StoryModel storyBody){
             StoryModel original = repository.findById(id)

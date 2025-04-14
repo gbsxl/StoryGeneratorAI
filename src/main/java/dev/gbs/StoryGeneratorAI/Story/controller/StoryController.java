@@ -38,6 +38,13 @@ public class StoryController {
        return ResponseEntity.ok(storyModel);
     }
 
+    @GetMapping("/describe/{id}")
+    public ResponseEntity<List<String>> describeById(@PathVariable Long id){
+        List<String> stringList = service.describeById(id);
+        return ResponseEntity.ok(stringList);
+    }
+
+
     //acessar words de uma story - GET
     @GetMapping("/print/{id}/words")
     public ResponseEntity<List<WordModel>> printWords(@PathVariable Long id){
