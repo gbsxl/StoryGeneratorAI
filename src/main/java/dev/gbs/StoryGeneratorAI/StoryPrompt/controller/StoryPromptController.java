@@ -15,7 +15,7 @@ public class StoryPromptController {
         this.promptService = promptService;
     }
 
-    @GetMapping("/generate{id}")
+    @GetMapping("/generate/{id}")
     public Mono<ResponseEntity<String>> generateStoryPrompt(@PathVariable Long id){
         return promptService.generatePrompt(id)
             .map(ResponseEntity::ok)
